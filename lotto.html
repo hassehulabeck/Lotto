@@ -7,36 +7,34 @@ function generateLottorad(turnummer) {
   var lottorad = [];
 
   // Börja med att inspektera turnummer
-  if (isNumeric(turnummer) AND (turnummer > 0)) {
-    sjuNummer.push(turnummer);
+  // Det måste både vara mer än 0 och vara av typen nummer
+  if ((turnummer > 0) && (isNaN(turnummer) == false)) {
+    lottorad.push(turnummer);
   }
- 
-  // Det kan också vara en array med turnummer
-  if (typeof(turnummer) == object) {
-    // i så fall måste vi gå igenom den element för element.
-    turnummer.foreach() {
 
-    }
+  // Det kan också vara en array med turnummer
+  if (typeof(turnummer) == "object") {
+    // i så fall måste vi gå igenom den element för element.
+    turnummer.foreach(function(item) {
+      lottorad.push(item);
+    });
   }
 
   // Om vi tillför ett eller flera turnummer,
   // måste vi bestämma antalet slumpade tal på ett annat sätt än
   // en vanlig for-loop
-  while (lottorad) {
+  while (lottorad.length < 7) {
     let slump = Math.ceil(Math.random() * 35);
     // Kontrollera om det framslumpade numret redan finns i retur.
-    if (lottorad.indexOf(slump) == -1)
+    if (lottorad.indexOf(slump) == -1) {
       lottorad.push(slump);
-    else {
-      // Vrid tillbaks iteratorn ett hack så att vi inte får ett nummer för lite.
-      i--;
     }
   }
   // Sortera arrayen. Sort med nummer behöver en funktion som den nedan.
   lottorad.sort(function(a, b) {
     return a - b;
   });
-  return retur;
+  return lottorad;
 }
 
 var turnummer = 12;
